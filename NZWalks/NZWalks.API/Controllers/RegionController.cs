@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+//using Microsoft.Identity.Web.Resource;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repository;
 using System.Diagnostics.Contracts;
@@ -8,6 +10,7 @@ namespace NZWalks.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+   // [RequiredScope(RequiredScopesConfigurationKey ="AzureAd:Scopes")]
     public class RegionController : Controller
     {
         private readonly IRegionRepository regionRepository;
@@ -19,6 +22,7 @@ namespace NZWalks.API.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
+        //[Authorize(Roles ="Manager")]
         public async Task<IActionResult> GetAllRegionsAsync()
         {
             var regions = await regionRepository.GetAllAsync();
